@@ -42,6 +42,10 @@ class CalendarList extends Component {
     horizontal: PropTypes.bool,
     // Dynamic calendar height
     calendarHeight: PropTypes.number,
+
+    viewabilityConfig: PropTypes.object,
+
+    distanceToRender: PropTypes.number
   };
 
   constructor(props) {
@@ -145,7 +149,7 @@ class CalendarList extends Component {
     const visibleMonths = [];
     for (let i = 0; i < rowclone.length; i++) {
       let val = rowclone[i];
-      const rowShouldBeRendered = rowIsCloseToViewable(i, 1);
+      const rowShouldBeRendered = rowIsCloseToViewable(i, (this.props.distanceToRender || 1));
       if (rowShouldBeRendered && !rowclone[i].getTime) {
         val = this.state.openDate.clone().addMonths(i - this.pastScrollRange, true);
       } else if (!rowShouldBeRendered) {
