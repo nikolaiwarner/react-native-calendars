@@ -52,6 +52,12 @@ class CalendarList extends Component {
     this.calendarWidth = this.props.calendarWidth || width;
     this.calendarHeight = props.calendarHeight;
 
+    this.viewabilityConfig = {
+      minimumViewTime: 3000,
+      viewAreaCoveragePercentThreshold: 100,
+      waitForInteraction: true
+    }
+
     const rows = [];
     const texts = [];
     const date = parseDate(props.current) || XDate();
@@ -203,13 +209,7 @@ class CalendarList extends Component {
         scrollsToTop={this.props.scrollsToTop !== undefined ? this.props.scrollsToTop : false}
 
         debug={true}
-        viewabilityConfig={
-          {
-            minimumViewTime: 3000,
-            viewAreaCoveragePercentThreshold: 100,
-            waitForInteraction: true,
-          }
-        }
+        viewabilityConfig={this.viewabilityConfig}
       />
     );
   }
