@@ -178,7 +178,6 @@ class CalendarList extends Component {
   }
 
   render() {
-    console.log('NICK- 1 ')
     return (
       <FlatList
         ref={(c) => this.listView = c}
@@ -201,8 +200,6 @@ class CalendarList extends Component {
         initialScrollIndex={this.state.openDate ? this.getMonthIndex(this.state.openDate) : false}
         getItemLayout={this.getItemLayout}
         scrollsToTop={this.props.scrollsToTop !== undefined ? this.props.scrollsToTop : false}
-
-        debug={true}
         viewabilityConfig={this.viewabilityConfig}
       />
     );
