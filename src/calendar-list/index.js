@@ -168,12 +168,12 @@ class CalendarList extends Component {
   onMomentumScrollEnd (e) {
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
-    let page = Math.floor(contentOffset.x / viewSize.width);
+    let page = Math.round(contentOffset.x / viewSize.width);
     let month = this.state.rows[page];
     console.log('scrolled to page ', page, {month});
 
     if (this.props.onMomentumScrollEnd) {
-      this.props.onMomentumScrollEnd(e, {page, month});
+      this.props.onMomentumScrollEnd({e, page, month, rows: this.state.rows});
     }
   }
 
