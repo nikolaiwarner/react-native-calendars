@@ -42,8 +42,6 @@ class CalendarList extends Component {
     horizontal: PropTypes.bool,
     // Dynamic calendar height
     calendarHeight: PropTypes.number,
-
-    onMomentumScrollEnd: PropTypes.function
   };
 
   constructor(props) {
