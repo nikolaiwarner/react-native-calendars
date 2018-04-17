@@ -42,6 +42,8 @@ class CalendarList extends Component {
     horizontal: PropTypes.bool,
     // Dynamic calendar height
     calendarHeight: PropTypes.number,
+
+    onMomentumScrollEnd: PropTypes.function
   };
 
   constructor(props) {
@@ -77,6 +79,7 @@ class CalendarList extends Component {
       initialized: false
     };
 
+    this.onMomentumScrollEndBound = this.onMomentumScrollEnd.bind(this);
     this.onViewableItemsChangedBound = this.onViewableItemsChanged.bind(this);
     this.renderCalendarBound = this.renderCalendar.bind(this);
     this.getItemLayout = this.getItemLayout.bind(this);
@@ -164,6 +167,18 @@ class CalendarList extends Component {
     });
   }
 
+  onMomentumScrollEnd (e) {
+    let contentOffset = e.nativeEvent.contentOffset;
+    let viewSize = e.nativeEvent.layoutMeasurement;
+    let page = Math.floor(contentOffset.x / viewSize.width);
+    let month = this.rows[page]
+    console.log('scrolled to page ', page, {month});
+
+    if (this.props.onMomentumScrollEnd) {
+      this.props.onMomentumScrollEnd(e, {page, month});
+    }
+  }
+
   renderCalendar({item}) {
     return (<CalendarListItem item={item} calendarHeight={this.calendarHeight} calendarWidth={this.props.horizontal ? this.calendarWidth : undefined  } {...this.props} />);
   }
@@ -200,6 +215,7 @@ class CalendarList extends Component {
         initialScrollIndex={this.state.openDate ? this.getMonthIndex(this.state.openDate) : false}
         getItemLayout={this.getItemLayout}
         scrollsToTop={this.props.scrollsToTop !== undefined ? this.props.scrollsToTop : false}
+        onMomentumScrollEnd={this.onMomentumScrollEndBound}
       />
     );
   }
